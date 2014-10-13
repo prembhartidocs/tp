@@ -1,0 +1,12 @@
+@CHARSET "ISO-8859-1";
+.mybutton{
+background-color: #ACACFF;
+padding: 10px;
+border-radius: 5px;
+font:15px Arial,sans-serif;
+font-weight:bolder;
+cursor:pointer;
+}
+.mybutton:hover{
+box-shadow: 10px 5px 4px #888888;
+}

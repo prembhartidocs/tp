@@ -1,0 +1,3 @@
+<%@ page contentType="text/html; charset=UTF-8"%>
+			<p style="padding:30px;">SmartTravel.com is a leading online travel services provider in India, US and UK. We offer the best deals in flight bookings, hotel bookings and holiday packages. Find cheap domestic flights to destinations in India or book cheap international flights within minutes. You can also easily book/cancel IRCTC train tickets on Yatra. With over 5,000 hotels in India and more than 90,000 hotels associated with us worldwide, rest assured, we'll get you an appropriate hotel no matter the budget. Creating happy and satisfied travellers is our motto!</p>				
+			<!-- end .footer -->

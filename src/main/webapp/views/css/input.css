@@ -1,0 +1,35 @@
+input:focus,select:FOCUS {
+	background-color: #FFFFCC;
+	
+}
+
+.textfield {
+	border-radius: 5px;
+	padding: 8px 10px 5px 10px;
+	margin-left: 10px;
+	font-weight:200;
+	font-size:14px;
+	font-family:Verdana;
+	box-shadow:1px 1px 5px #CCC;
+	width: 180px;
+	height:20px;
+	border:1px solid #CCC;	
+	
+}
+ 
+.combobox {
+	margin-left: 10px;
+	
+	height: 32px;
+	border-radius: 3px;
+	border: 1px solid #CCC;
+	font-weight: 200;
+	font-size: 15px;
+	font-family: Verdana;
+	box-shadow: 1px 1px 5px #CCC;
+
+}
+
+.combobox: focus {
+	background-color: #FFFFCC;
+}

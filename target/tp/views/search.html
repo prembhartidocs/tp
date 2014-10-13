@@ -1,0 +1,142 @@
+<script type="text/javascript">
+	$(document).ready(function() {
+		$.getJSON('findsource.action', {}, function(data) {
+				 $( "#departureCity" ).autocomplete({
+				 source: data.source
+				 });
+		});
+		$.getJSON('finddest.action', {}, function(data2) {
+			 $("#dest").autocomplete({
+			 source: data2.destination
+			 });
+	});
+		$("#departureCity").blur(
+				function() {								
+					$.getJSON('finddest.action', 
+							{
+							sourceCity:$("#departureCity").val()
+						},
+							function(data) {
+							$("#dest").autocomplete({
+								 source: data.destination
+								 });
+							});		
+				});			 	
+	 return false;
+	});
+	
+	function addnum(id, start, end) {
+		var oSelField = document.getElementById(id); 
+		oSelField.options.length = 0; //clears all options
+		for ( var i = start; i <= end; i++) {
+			var oOption = document.createElement("OPTION");
+			oSelField.options.add(oOption);
+			oOption.text = i;
+			oOption.value = i;
+		}
+	}
+</script>
+
+<style>
+
+#searchtable td {
+	font: 15px Arial, sans-serif;
+	font-weight: bold;
+	font-family: Verdana;
+	color: #000099;
+}
+</style>
+<div class="divcontainer" style="width: 350px">
+	<div class="divheader">Flight Search</div>
+	<div class="divmainbody"
+		style="padding-top: 5px; background-image: url(Views/images/sky.jpg);">
+		<br />
+		<form id="xyz" action="flightsearch" method="post">
+			<table align="center" id="searchtable">
+
+				<tr>
+					<td>FROM</td>
+					<td><input type="text" id="departureCity" name="departureCity"
+						class="textfield" size="80" pattern="[a-zA-Z]+" title="City name should be in Alphabet Only" placeholder="Departure City" autofocus
+						required /></td>
+				</tr>
+
+				<tr>
+					<td>TO</td>
+					<td><input type="text" id="dest" name="destinationCity"
+						class="textfield" size="80" pattern="[a-zA-Z]+"  title="City name should be in Alphabet Only" placeholder="Destination City"
+						required /></td>
+				</tr>
+
+				<tr>
+					<td>DATE</td>
+					<td><input type="text" id="datepicker" name="departureDat"
+						class="textfield" size="80" placeholder="Departure Date" readonly required /></td>
+				</tr>
+
+				<tr>
+					<td>TYPE</td>
+					<td><select name="flighttype" class="combobox"
+						style="width: 200px;">
+							<option value="nonstop">Non-stop</option>
+							<!-- 							<option value="direct">Direct</option> -->
+							<!-- <option value="connecting">Direct/Connecting</option> -->
+							<!-- <option value="alltype">All Type</option> -->
+					</select></td>
+				</tr>
+
+				<tr>
+					<td></td>
+				</tr>
+			</table>
+			<hr />
+			
+			&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;ADULT &nbsp;
+			&nbsp;&nbsp;CHILDREN &nbsp;&nbsp;INFANT <br />
+			&nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp; &nbsp; &nbsp;&nbsp;  (12+yrs)&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;(2-12yrs)&nbsp;  &nbsp;&nbsp;&nbsp;&nbsp;(0-24mnths)
+		
+			
+			<br/>&nbsp;&nbsp;&nbsp;
+			&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;<select id="adult" name="adult"
+				class="combobox" style="width: 60px;" onfocus='addnum("adult",1,15)'>
+				<option value="1">1</option>
+				
+
+			</select> &nbsp; <select id="children" name="children" class="combobox" style="width: 60px;" onfocus='addnum("children",0,15)'>
+				<option value="0">0</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+			</select> &nbsp;&nbsp; <select id="infant" name="infant" class="combobox"
+				style="width: 60px;" onfocus="addnum('infant',0,(document.getElementById('adult').value))">
+				<option value="0">0</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+				<option value="3">3</option>
+			</select> <br />
+			<hr />
+
+			<input type="submit" value="Show Flights" class="mybutton"
+				style="float: right; margin-right: 55px;"
+				onsubmit="$('#advert').hide(1000);" />
+		</form>
+		<br /> <br /> <br />
+	</div>
+	<div class="divfooter"></div>
+</div>
+
+<script>
+	$('#xyz').submit(function() { // catch the form's submit event		
+		document.getElementById("advert").innerHTML = "<br/><br/><br/><img src='Views/images/progress.gif'/>";
+		$.ajax({ // create an AJAX call...
+			data : $(this).serialize(), // get the form data
+			type : $(this).attr('method'), // GET or POST
+			url : $(this).attr('action'), // the file to call
+			success : function(response) { // on success..
+				$('#advert').html(response); // update the DIV					
+			}
+		});
+		document.getElementById("work").innerHTML="<p></p>"
+		return false; // cancel original event to prevent form submitting
+	});
+</script>
